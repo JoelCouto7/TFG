@@ -1,9 +1,9 @@
 extends Camera2D
 
 @export var tilemap: TileMap
-var margenIU
+var margenIU = 0
 var mapRect
-var tileSize
+var tileSize = 16
 var worldSizeInPixels
 var mapCenter
 # Called when the node enters the scene tree for the first time.

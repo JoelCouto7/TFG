@@ -2,10 +2,12 @@ extends CharacterBody2D
 
 var speed: int = 16
 #var limit = 0.5
+var hp = 1
 
 @onready var animations = $AnimatedSprite2D
 @onready var campoVision = $vision_area
 signal playerDetected
+signal enemyHited
 #@onready var interfaz = "res://jugador/interfaz_usuario.gd"
 
 var startPosition
@@ -36,8 +38,9 @@ func updateVelocity():
 	velocity = speed * moveDirection.normalized()
 
 func _physics_process(_delta):
-	updateVelocity()
-	move_and_slide()
+	if hp>0:
+		updateVelocity()
+		move_and_slide()
 
 
 func _on_vision_area_area_entered(area):
@@ -55,7 +58,16 @@ func _on_vision_area_area_exited(area):
 		playerPosition = position
 		playerDetected.emit("")
 
+func perish():
+	hp = 0
+	visible = false
+	#set_collision_layer_value(2, false)
+	#set_collision_mask_value(2, false)
+	process_mode = Node.PROCESS_MODE_DISABLED
+	pass
 
 func _on_hit_box_area_entered(area):
-	
+	#print(area.name)
+	if area.name == "espada":
+		perish()
 	pass # Replace with function body.

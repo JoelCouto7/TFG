@@ -52,7 +52,16 @@ func atacar():
 func defender():
 	pass
 
+func iraotromapa(otro_mapa: String):
+	##cargar otro mapa
+	#print(otro_mapa)
+	#get_tree().change_scene_to_file(otro_mapa)
+	if(Input.is_action_just_pressed("atacar")):
+		get_tree().change_scene_to_file(otro_mapa)
+	pass
+
 func _on_area_batalla_area_entered(area):
+	#print(area.name)
 	if area.name == "playerCollision":
 		#atacar() #ahora hay combate de verdad
 		#defender() #ya no es necesario

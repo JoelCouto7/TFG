@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgnqoyi0umjln"]
+[gd_scene load_steps=9 format=3 uid="uid://dgnqoyi0umjln"]
 
 [ext_resource type="Script" path="res://escenas/mundo.gd" id="1_hr8iy"]
 [ext_resource type="PackedScene" uid="uid://0nv8gcv2f8sr" path="res://jugador/jugador.tscn" id="1_r1m7r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://escenas/follow_cam.gd" id="2_ujyde"]
 [ext_resource type="PackedScene" uid="uid://bp43kjeeialmx" path="res://enemigos/slime.tscn" id="4_t3ljd"]
 [ext_resource type="PackedScene" uid="uid://hpf372ege0uj" path="res://jugador/interfaz_usuario.tscn" id="5_y4710"]
+[ext_resource type="PackedScene" uid="uid://b6bacsf8nn7s0" path="res://tilemap/portal.tscn" id="6_blpg1"]
+[ext_resource type="PackedScene" uid="uid://c062ernnp0vol" path="res://fondos/fondo_1.tscn" id="7_6tfuf"]
 
 [node name="Mundo" type="Node2D"]
 script = ExtResource("1_hr8iy")
@@ -30,8 +32,20 @@ position = Vector2(8, 8)
 script = ExtResource("2_ujyde")
 tilemap = NodePath("../..")
 
+[node name="slime2" parent="TileMap" instance=ExtResource("4_t3ljd")]
+position = Vector2(112, 188)
+
+[node name="portal" parent="TileMap" instance=ExtResource("6_blpg1")]
+position = Vector2(48, 344)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 offset = Vector2(160, 120)
 transform = Transform2D(1, 0, 0, 1, 160, 120)
 
 [node name="interfazUsuario" parent="CanvasLayer" instance=ExtResource("5_y4710")]
+
+[node name="Fondo" parent="." instance=ExtResource("7_6tfuf")]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0

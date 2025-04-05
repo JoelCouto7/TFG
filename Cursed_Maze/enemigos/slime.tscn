@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cuuej"]
-radius = 80.0
+radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q0u47"]
 radius = 6.0
@@ -52,7 +52,7 @@ shape = SubResource("CircleShape2D_q0u47")
 
 [node name="hitBox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 
 [node name="hitBox" type="CollisionShape2D" parent="hitBox"]
 shape = SubResource("CircleShape2D_hfcba")

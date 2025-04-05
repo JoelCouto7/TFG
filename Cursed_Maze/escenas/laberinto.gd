@@ -8,7 +8,10 @@ var tablero: Array
 var salas: Array
 
 @onready var mapa: TileMap = $TileMap
+@onready var jugador:CharacterBody2D = $TileMap/Jugador
+var baldosas_mapa: Array
 
+@onready var camara: Camera2D = $TileMap/Jugador/follow_cam
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,21 +44,26 @@ func _ready():
 			if(tablero[x][y] == 0):
 				if(x>0 and y>0) and (x<lado-1 and y<lado-1):
 					if((tablero[x+1][y] == 0 and tablero[x-1][y] ==0 and tablero[x][y+1] == 0 and tablero[x][y-1]==0)==false):
-						mapa.set_cell(0, Vector2i(x,y), 0, Vector2i(3,0), 0)
+						mapa.set_cell(0, Vector2i(x,y), 0, Vector2i(3,0), 1)
 				else:
 					mapa.set_cell(0, Vector2i(x,y), 0, Vector2i(3,0), 0)
+					pass
 				pass
 			else:
-				mapa.set_cell(0, Vector2i(x,y), 0, Vector2i(0,0), 0)
+				mapa.set_cell(0, Vector2i(x,y), 0, Vector2i(0,0), 1)
+				baldosas_mapa.append(Vector2i(x,y))
 				if(jugado_colocado==false and tablero[x][y] == 1):
 					jugado_colocado = true
-					var jugador = $TileMap/Jugador
+					#var jugador = $TileMap/Jugador
 					jugador.position.x = x*16 + (mapa.cell_quadrant_size * tamaño_salas / 2)
 					jugador.position.y = y*16 + (mapa.cell_quadrant_size * tamaño_salas / 2)
-					print("jugador movido")
+					#print("jugador movido")
 				pass
 			y +=1
 		x+=1
+	#baldosas_mapa = mapa.get_used_cells(0)
+	#print(baldosas_mapa)
+	camara._ready()
 	pass # Replace with function body.
 
 func ver_tablero():
@@ -232,6 +240,35 @@ func crear_sala(tam: int):
 	# En este momento tenemos un tablero completamente vacio
 	pass
 
+func ocultar_laberinto():
+	pass
+
+func descubrir():
+	#var jugador:CharacterBody2D = $TileMap/Jugador
+	var pos_x = jugador.position.x / 16
+	var pos_y = jugador.position.y / 16
+	#print(jugador.position.x)
+	#print(jugador.position.y)
+	
+	var coordenadas = mapa.get_cell_atlas_coords(0, Vector2i(pos_x,pos_y))
+	mapa.set_cell(0, Vector2i(pos_x,pos_y), 0, coordenadas, 0)
+	#print(mapa.get_surrounding_cells(Vector2i(pos_x,pos_y)))
+	#var celda
+	for celda in mapa.get_surrounding_cells(Vector2i(pos_x,pos_y)):
+		coordenadas = mapa.get_cell_atlas_coords(0, celda)
+		mapa.set_cell(0, celda, 0, coordenadas, 0)
+	#print(mapa.get_coords_for_body_rid(jugador))
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# hay que hacer un evento para llamar a descubrir cuando el jugador pise una nueva baldosa
+	# en lugar de llamarlo 60 veces por segundo, es demasiado ineficiente
+	var pos_x = jugador.position.x / 16
+	var pos_y = jugador.position.y / 16
+	var posicion_jugador = Vector2i(pos_x,pos_y)
+	if baldosas_mapa.has(posicion_jugador):
+		descubrir()
+		baldosas_mapa.erase(posicion_jugador)
+		#print(baldosas_mapa)
 	pass
