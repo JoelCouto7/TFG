@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0y5avt70g86x"]
+[gd_scene load_steps=6 format=3 uid="uid://b0y5avt70g86x"]
 
 [ext_resource type="Script" path="res://escenas/laberinto.gd" id="1_6a1pq"]
 [ext_resource type="TileSet" uid="uid://b1tvrbac18fxx" path="res://tilemap/tm_general.tres" id="1_s2703"]
 [ext_resource type="PackedScene" uid="uid://0nv8gcv2f8sr" path="res://jugador/jugador.tscn" id="2_j87ta"]
+[ext_resource type="PackedScene" uid="uid://b6bacsf8nn7s0" path="res://tilemap/portal.tscn" id="3_1jh0a"]
 [ext_resource type="Script" path="res://escenas/follow_cam.gd" id="3_ksotx"]
 
 [node name="Laberinto" type="Node2D"]
@@ -15,6 +16,10 @@ numero_salas = 6
 tile_set = ExtResource("1_s2703")
 format = 2
 layer_0/name = "terreno"
+
+[node name="portal" parent="TileMap" instance=ExtResource("3_1jh0a")]
+position = Vector2(85, 36)
+destino = "res://escenas/laberintos1/laberinto1_1.tscn"
 
 [node name="Jugador" parent="TileMap" instance=ExtResource("2_j87ta")]
 z_index = 2

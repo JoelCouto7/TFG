@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://cwr4kwm81dndu"]
+
+[ext_resource type="Script" path="res://enemigos/slime.gd" id="1_3fx73"]
+[ext_resource type="Texture2D" uid="uid://boxuft7hain5y" path="res://graficos/slime_boss.png" id="1_k7e5g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3vvl"]
+atlas = ExtResource("1_k7e5g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xivlc"]
+atlas = ExtResource("1_k7e5g")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm77f"]
+atlas = ExtResource("1_k7e5g")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6it6m"]
+atlas = ExtResource("1_k7e5g")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rsn0a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3vvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xivlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm77f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6it6m")
+}],
+"loop": true,
+"name": &"andar",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cewca"]
+radius = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sgyeo"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_34gee"]
+radius = 12.0
+
+[node name="slime_boss" type="CharacterBody2D"]
+script = ExtResource("1_3fx73")
+hp = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rsn0a")
+animation = &"andar"
+
+[node name="vision_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision_area"]
+shape = SubResource("CircleShape2D_cewca")
+
+[node name="collisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sgyeo")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="hitbox" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_34gee")
+
+[connection signal="area_entered" from="vision_area" to="." method="_on_vision_area_area_entered"]
+[connection signal="area_exited" from="vision_area" to="." method="_on_vision_area_area_exited"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hit_box_area_entered"]

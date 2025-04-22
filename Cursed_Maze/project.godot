@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cursed_Maze"
-run/main_scene="res://escenas/mundo.tscn"
+run/main_scene="res://escenas/pantalla_titulo.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

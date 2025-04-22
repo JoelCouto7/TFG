@@ -4,11 +4,13 @@ extends Node2D
 @export var lado: int
 @export var numero_salas: int
 @export var tamaño_salas: int
+#@export var siguiente_estancia: String
 var tablero: Array
 var salas: Array
 
 @onready var mapa: TileMap = $TileMap
 @onready var jugador:CharacterBody2D = $TileMap/Jugador
+@onready var salida = $TileMap/portal
 var baldosas_mapa: Array
 
 @onready var camara: Camera2D = $TileMap/Jugador/follow_cam
@@ -37,6 +39,7 @@ func _ready():
 	# En este punto el tablero está completo
 	# A partir de aquí hay que pasar la matriz a TileMap
 	var jugado_colocado = false
+	var salida_colocada = false
 	var x = 0
 	while (x<lado):
 		var y = 0
@@ -59,12 +62,24 @@ func _ready():
 					jugador.position.y = y*16 + (mapa.cell_quadrant_size * tamaño_salas / 2)
 					#print("jugador movido")
 				pass
+				if(salida_colocada==false and tablero[x][y] == numero_salas):
+					salida_colocada = true
+					salida.transportar.connect(self.iraotromapa)
+					#var jugador = $TileMap/Jugador
+					salida.position.x = x*16 + (mapa.cell_quadrant_size * tamaño_salas / 2)
+					salida.position.y = y*16 + (mapa.cell_quadrant_size * tamaño_salas / 2)
+					#print("jugador movido")
+				pass
 			y +=1
 		x+=1
 	#baldosas_mapa = mapa.get_used_cells(0)
 	#print(baldosas_mapa)
 	camara._ready()
 	pass # Replace with function body.
+
+func iraotromapa(otro_mapa: String):
+	get_tree().change_scene_to_file(otro_mapa)
+	pass
 
 func ver_tablero():
 	var i=0
