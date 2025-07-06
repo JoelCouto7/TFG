@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2ld3m3j0samh"]
+
+[ext_resource type="Script" path="res://escenas/laberintos2/piso.gd" id="1_2gp7f"]
+[ext_resource type="TileSet" uid="uid://b1tvrbac18fxx" path="res://tilemap/tm_general.tres" id="2_swjux"]
+[ext_resource type="PackedScene" uid="uid://b35funangx6a" path="res://jugador/jugador.tscn" id="3_66jxo"]
+[ext_resource type="PackedScene" uid="uid://cs5wcxp4vmmt" path="res://tilemap/portal_2.tscn" id="4_2yfnt"]
+
+[node name="Piso" type="Node2D"]
+script = ExtResource("1_2gp7f")
+numero_salas = 12
+probabilidad_enemigo = 5
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_swjux")
+format = 2
+
+[node name="Jugador" parent="TileMap" instance=ExtResource("3_66jxo")]
+
+[node name="portal2" parent="TileMap" instance=ExtResource("4_2yfnt")]
+position = Vector2(25, 15)
+destino = "res://escenas/castillo.tscn"
+
+[connection signal="andando" from="TileMap/Jugador" to="." method="_on_jugador_andando"]

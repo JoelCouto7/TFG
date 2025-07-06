@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b35funangx6a"]
+
+[ext_resource type="PackedScene" uid="uid://0nv8gcv2f8sr" path="res://jugador/prota.tscn" id="1_1i4vy"]
+[ext_resource type="Script" path="res://jugador/jugador.gd" id="1_ldkoi"]
+[ext_resource type="PackedScene" uid="uid://s08vhvvqgvl1" path="res://jugador/follow_cam.tscn" id="2_4eli0"]
+[ext_resource type="PackedScene" uid="uid://hpf372ege0uj" path="res://jugador/interfaz_usuario.tscn" id="3_kkcr7"]
+
+[node name="Jugador" type="Node2D"]
+script = ExtResource("1_ldkoi")
+
+[node name="prota" parent="." instance=ExtResource("1_1i4vy")]
+
+[node name="follow_cam" parent="prota" instance=ExtResource("2_4eli0")]
+
+[node name="interfazUsuario" parent="prota" instance=ExtResource("3_kkcr7")]
+visible = false
+z_index = 2
+z_as_relative = false
+offset_left = -160.0
+offset_top = -120.0
+offset_right = -160.0
+offset_bottom = -120.0
+
+[connection signal="moviendo" from="prota" to="." method="_on_prota_moviendo"]

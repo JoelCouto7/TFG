@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://hpf372ege0uj"]
+
+[ext_resource type="Script" path="res://jugador/interfaz_usuario.gd" id="1_g724a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jd7u"]
+line_spacing = 2.0
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_sc6pt"]
+font_size = 8
+
+[node name="interfazUsuario" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g724a")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 224.0
+offset_right = 320.0
+offset_bottom = 240.0
+
+[node name="player_status" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 16.0
+text = "  VT: 10/10"
+label_settings = SubResource("LabelSettings_6jd7u")
+vertical_alignment = 1
+language = "en_EU"
+
+[node name="info" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 320.0
+offset_bottom = 17.0
+text = "Info:"
+label_settings = SubResource("LabelSettings_sc6pt")
+vertical_alignment = 1

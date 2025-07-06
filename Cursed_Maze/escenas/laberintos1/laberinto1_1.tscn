@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cox4ywwvjcrl5"]
+
+[ext_resource type="PackedScene" uid="uid://b0y5avt70g86x" path="res://escenas/laberinto.tscn" id="1_2d74i"]
+
+[node name="Laberinto" instance=ExtResource("1_2d74i")]
+lado = 21
+
+[node name="portal2" parent="TileMap" index="1"]
+destino = "res://escenas/laberintos1/laberinto1_2.tscn"
