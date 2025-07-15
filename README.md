@@ -1,5 +1,5 @@
 # TFG
-Cursed Maze (Demo)
+## Cursed Maze (Demo)
 
 Autor: Joel Couto Pérez
 
